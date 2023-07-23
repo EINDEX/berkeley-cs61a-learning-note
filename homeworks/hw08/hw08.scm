@@ -1,0 +1,40 @@
+(define (my-filter pred s) 
+  ; (displayln 'DEBUG:s s (null? s) )
+  (if (null? s) 
+    ()
+    (begin 
+      ; (displayln 'DEBUG:s2 s (null? s) (car s) (pred (car s)))
+      (if (pred (car s))
+        (append (list (car s)) (my-filter pred (cdr s)))
+        (my-filter pred (cdr s))
+      )
+    )
+  )
+)
+
+(define (interleave lst1 lst2) 
+  (if (null? lst1)
+    lst2
+    (append (list (car lst1)) (interleave lst2 (cdr lst1)))
+  )
+)
+
+(define (accumulate joiner start n term)
+  (if (= n 0)
+    start
+    (joiner (term n) (accumulate joiner start (- n 1) term))
+  )
+)
+
+(define (no-repeats lst) 
+  ; (displayln 'DEBUG:lst lst (null? lst))
+  (if (null? lst)
+    ()
+    (begin 
+      (define helper (lambda (x) (not (= x (car lst)))))
+      (define res (my-filter helper (cdr lst)))
+      ; (displayln 'DEBUG:lst2 lst (cdr lst) res)
+      (append (list (car lst)) (no-repeats res))
+    )
+  )
+)
