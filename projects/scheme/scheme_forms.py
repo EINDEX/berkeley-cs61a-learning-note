@@ -137,6 +137,20 @@ def do_and_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    if expressions is nil:
+        return True
+
+    val = scheme_eval(expressions.first, env)
+
+    print("DEBUG: P12: ", expressions, val, is_scheme_false(val))
+    if is_scheme_false(val):
+        return False
+
+    if expressions.rest is nil:
+        return val
+    
+    return do_and_form(expressions.rest, env)
+
     # END PROBLEM 12
 
 
@@ -156,6 +170,21 @@ def do_or_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+
+    if expressions is nil:
+        return False
+
+    val = scheme_eval(expressions.first, env)
+    print("DEBUG: P12: ", expressions, val, is_scheme_false(val))
+    
+    if not is_scheme_false(val):
+        return val
+
+    if expressions.rest is nil:
+        return False
+    
+    return do_or_form(expressions.rest, env)
+
     # END PROBLEM 12
 
 
@@ -260,7 +289,7 @@ def do_mu_form(expressions, env):
     # BEGIN PROBLEM 11
     "*** YOUR CODE HERE ***"
     return MuProcedure(formals, expressions.rest)
-    
+
     # END PROBLEM 11
 
 
