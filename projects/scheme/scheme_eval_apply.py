@@ -74,7 +74,7 @@ def scheme_apply(procedure, args, env):
         try:
             # BEGIN PROBLEM 2
             "*** YOUR CODE HERE ***"
-            print("DEBUG: ", procedure.py_func, params)
+            print("DEBUG: 02 scheme_apply", procedure.py_func, params)
             return procedure.py_func(*params)
 
             # END PROBLEM 2
@@ -83,6 +83,12 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
+        print("DEBUG: 09", procedure, args, env)
+        frame = procedure.env.make_child_frame(procedure.formals, args)
+        # print("DEBUG: 09 ", eval_all(procedure.body, frame))
+        return eval_all(procedure.body, frame)
+
+
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
