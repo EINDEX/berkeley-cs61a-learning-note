@@ -39,9 +39,13 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
         print("DEBUG: scheme_eval 0", expr, expr.first, expr.rest)
 
         cal = lambda x: scheme_eval(x, env, _)
+        if isinstance(expr.first, Pair):
+            procedure = scheme_eval(expr.first, env, _)
+            if not isinstance(procedure, Procedure):
+                raise SchemeError('operator should be evaluated before operands')
+        else:
+            procedure = env.lookup(expr.first)
         res = expr.rest.map(cal)
-        procedure = scheme_eval(first, env, _)
-        
         return scheme_apply(procedure, res, env)
 
         # END PROBLEM 3
