@@ -58,6 +58,16 @@ class Frame:
             raise SchemeError('Incorrect number of arguments to function call')
         # BEGIN PROBLEM 8
         "*** YOUR CODE HERE ***"
+
+        frame = Frame(self)
+        print("DEBUG:", formals, vals)
+        
+        while formals:
+            frame.bindings[formals.first] = vals.first
+            formals, vals = formals.rest, vals.rest
+
+        return frame
+
         # END PROBLEM 8
 
 ##############
