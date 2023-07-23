@@ -47,10 +47,23 @@ def scheme_apply(procedure, args, env):
     if isinstance(procedure, BuiltinProcedure):
         # BEGIN PROBLEM 2
         "*** YOUR CODE HERE ***"
+        def pair2list(pair):
+            if not pair:
+                return []
+            return [pair.first] + pair2list(pair.rest)
+
+        params = pair2list(args)
+
+        if procedure.need_env:
+            params.append(env)
+
         # END PROBLEM 2
         try:
             # BEGIN PROBLEM 2
             "*** YOUR CODE HERE ***"
+            print("DEBUG: ", procedure.py_func, params)
+            return procedure.py_func(*params)
+            
             # END PROBLEM 2
         except TypeError as err:
             raise SchemeError('incorrect number of arguments: {0}'.format(procedure))
